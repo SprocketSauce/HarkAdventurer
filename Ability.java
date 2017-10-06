@@ -1,15 +1,15 @@
 public class Ability
 {
+	// ===== CLASSFIELDS =====	
 	private char type;
 	private String name;
-	private char target;
+	private TargetingStrategy target;
 	private int base;
 	private int numDice;
 	private int typeDice;
 
 	
-	public Ability( char inType, String inName, char inTarget, int inBase, int inNumDice,
-		int inTypeDice ) throws AbilityException
+	public Ability( char inType, String inName, TargetingStrategy inTarget, int inBase, int inNumDice, int inTypeDice ) throws AbilityException
 	{
 		setType( inType );
 		setName( inName );
@@ -19,15 +19,15 @@ public class Ability
 		setTypeDice( inTypeDice );
 	} // end method
 
-    // =====ACCESSORS=====
+    // ===== ACCESSORS =====
     public char getType() { return type; }
     public String getName() { return new String( name ); }
-    public char getTarget() { return target; }
+    public TargetingStrategy getTarget() { return target; }
     public int getBase() { return base; }
     public int getNumDice() { return numDice; }
     public int getTypeDice() { return typeDice; }
     
-    // =====MUTATORS=====
+    // ===== MUTATORS =====
 	public void setType( char inType ) throws AbilityException
 	{
 		if ( inType == 'H' || inType == 'D' )
@@ -45,16 +45,9 @@ public class Ability
 		name = new String( inName );
 	} // end method
 
-	public void setTarget( char inTarget ) throws AbilityException
+	public void setTarget( TargetingStrategy inTarget )
 	{
-		if ( inTarget == 'S' || inTarget == 'M' )
-		{
-			target = inTarget;
-		}
-		else
-		{
-			throw new AbilityException( "Invalid target type" );
-		} // end if
+		target = inTarget;
 	} // end method
 
 	public void setBase( int inBase ) throws AbilityException
@@ -119,15 +112,7 @@ public class Ability
             outStr += "Damage";
         } // end if
         
-        outStr += "    Target: ";
-        if ( target == 'S')
-        {
-            outStr += "Single";            
-        }
-        else if ( target == 'M' )
-        {
-            outStr += "Multi";
-        } // end if
+        outStr += "    Target: " + target.toString();
         
         outStr += "    Damage: " + numDice + "d" + typeDice + " + " + base;
         

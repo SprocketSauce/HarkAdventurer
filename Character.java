@@ -1,6 +1,6 @@
 import java.util.*;
 
-abstract public class Character implements Subject
+abstract public class Character implements Subject, Targetable
 {
 	private String name;
 	private int maxHealth;
@@ -76,6 +76,21 @@ abstract public class Character implements Subject
 	{
 		abilities.add( inAbility );
 	} // end mutator
+	
+	@Override
+	public boolean equals( Object inObj )
+	{
+		Character inChara;
+		boolean result = false;
+		
+		if ( inObj instanceof Character )
+		{
+			inChara = (Character)inObj;
+			result = ( name == inChara.getName() && maxHealth == inChara.getMaxHealth() && curHealth == inChara.getCurHealth() && abilities.equals( inChara.getAbilities() ) );
+		}
+		
+		return result;
+	} // end method
     
     public String toString()
     {

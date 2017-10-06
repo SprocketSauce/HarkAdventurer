@@ -3,15 +3,33 @@ import java.io.*;
 
 public class FileLoader
 {
-	public static LinkedList<Ability> readAbilities( String fileName ) throws IOException, AbilityException
+	public static LinkedList<Ability> readAbilities( String filename ) throws AbilityException
 	{
-		LinkedList<String> lineList = readFile( fileName );
+		LinkedList<String> lineList;
+		
+		try
+		{
+			lineList = readFile( filename );
+		}
+		catch ( IOException e )
+		{
+			throw new AbilityException( "Error: " + e.getMessage() ); 
+		} // end try-catch
+		
 		LinkedList<Ability> abilities = new LinkedList<Ability>();
 		Ability ability;
 
 		for ( int i = 1; i < lineList.size(); i++ )
 		{
-			ability = AbilityFactory.createAbility( lineList.get(i) );
+			try
+			{
+				ability = AbilityFactory.createAbility( lineList.get(i) );
+			}
+			catch ( AbilityException e )
+			{
+				throw new AbilityException( "Error: " + filename + " line " + (i + 1) + ": " + e.getMessage() );
+			} // end try-catch
+			
 			abilities.add( ability );
 		} // end for
 
@@ -20,15 +38,18 @@ public class FileLoader
 
 	public static LinkedList<Character> readCharacters( String fileName, LinkedList<Ability> abilities ) throws IOException, CharacterException
 	{
-        LinkedList<String> lineList = readFile( fileName );
-        LinkedList<Character> characters = new LinkedList<Character>();
         Character character;
-        
+        LinkedList<Team> teams;
+        LinkedList<Character> characters = new LinkedList<Character>();              
+        LinkedList<String> lineList = readFile( fileName );
+                
         for ( int i = 1; i < lineList.size(); i++ )
         {
             character = CharacterFactory.createCharacter( lineList.get(i), abilities );
             characters.add( character );
         }
+        
+        teams = CharacterFactory.teamSort( characters );
         
         return characters;
 	}
