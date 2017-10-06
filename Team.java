@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class Team implements Targetable
+public class Team implements Targetable, Observer
 {
 	// ===== CLASSFIELDS =====
 	private String name;	

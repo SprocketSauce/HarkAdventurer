@@ -10,22 +10,20 @@ public class TeamManager
 		
 		teams.add( adventurers );
 		teams.add( monsters );
-	}
+	} // end class
 	
 	public static void teamSort( Character chara, Team pcTeam, Team npcTeam )
 	{
 		if ( chara instanceof PlayerCharacter )
 		{
-			pcTeam.add( chara );						
+			pcTeam.add( chara );												
 		}
 		else
 		{
 			npcTeam.add( chara );
-		}		
-	} // end method
-	
-	private static String readTeam( String data );
-	{
+		} // end if
 		
+		chara.registerObserver( pcTeam );
+		chara.registerObserver( npcTeam );
 	} // end method
-}
+} // end class
