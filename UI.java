@@ -12,7 +12,7 @@ public class UI
         int selection;
         GameController game;
 
-		selection = inputInt( 1, 2, "1.    Start Game\n2.    Exit\n\nSelection: " );
+		selection = inputInt( 1, 2, "1.    New Game\n2.    Exit\n\nSelection: " );
 		
 		if ( selection == 1 )
 		{
@@ -79,5 +79,30 @@ public class UI
 		selection = inputInt( 1, 2, "\n1)    Try again\n2)    Cancel\n\nSelection: " );
 		
 		return ( selection == 1 );
+	}
+	
+	// WORK IN PROGRESS
+	public static void roundMenu( LinkedList<Team> teamList )
+	{
+		int selection;
+		
+		System.out.println( "=================================================\n INTERMISSION\n=================================================\n" )
+		
+		do
+		{
+			selection = inputInt( 1, 4, "1)    Next Round\n2)    Save Game\n3)    Load Game\n4)    Exit\n\nSelection: ");
+			
+			switch ( selection )
+			{
+				case 1:
+					break;
+				case 2:
+					break;
+				case 3:
+					break;
+				case 4:
+					break;
+			} // end switch
+		} while ( selection == 2 || selection == 3 );		
 	}
 }
