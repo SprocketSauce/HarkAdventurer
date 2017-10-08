@@ -1,21 +1,53 @@
 import java.util.*;
 
-public class Game
+public class GameController
 {
-	private LinkedList<Ability> abilityList;
-	private LinkedList<Team> teamList;
-	
 	public void startGame()
 	{
+		LinkedList<Ability> abilityList;
+		LinkedList<Team> teamList;
+		
 		loadAbilities();
 		
 		if ( abilityList != null )
 		{
 			loadCharacters();
-		}
+		} // end if
+		
+		if ( teamList != null )
+		{
+			runGame( teamList );
+		} // end if
 	} // end method
 	
-	private void loadAbilities()
+	private void runGame( LinkedList<Team> teamList )
+	{
+		Team team;
+		Character chara;
+		ListIterator<Team> teamIter;
+		ListIterator<Character> charIter;
+		
+		teamIter = teamList.listIterator(0);
+		
+		while ( teamIter.hasNext() )
+		{
+			team = teamIter.next();
+			charIter = team.getCharacters().listIterator(0);
+			
+			while ( charIter.hasNext() )
+			{
+				chara = charIter.next();
+				takeTurn( chara, team, teamList );
+			} // end while
+		} // end while
+	} // end method
+	
+	private void takeTurn( Character chara, Team curTeam, LinkedList<Team> teamList )
+	{
+		
+	}
+	
+	private LinkedList<Ability> loadAbilities()
 	{
 		String filename;
 		boolean retry;
@@ -37,7 +69,7 @@ public class Game
 		} while ( retry );
 	} // end method
 	
-	private void loadCharacters()
+	private LinkedList<Team> loadCharacters()
 	{
 		String filename;
 		boolean retry;

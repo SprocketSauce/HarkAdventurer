@@ -1,6 +1,7 @@
 import java.util.*;
+import java.io.Serializable;
 
-public class Team implements Targetable, FriendlyObserver, EnemyObserver
+public class Team implements Targetable, FriendlyObserver, EnemyObserver, Serializable
 {
 	// ===== CLASSFIELDS =====
 	private String name;	

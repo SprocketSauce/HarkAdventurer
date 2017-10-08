@@ -10,13 +10,13 @@ public class UI
     public static void mainMenu()
     {
         int selection;
-        Game game;
+        GameController game;
 
 		selection = inputInt( 1, 2, "1.    Start Game\n2.    Exit\n\nSelection: " );
 		
 		if ( selection == 1 )
 		{
-			game = new Game();
+			game = new GameController();
 			game.startGame();
 		} // end if
 		else

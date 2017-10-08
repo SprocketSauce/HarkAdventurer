@@ -22,6 +22,13 @@ public class TestTeams
 			teams.get(1).getCharacters().get(0).changeHealth( -100 );
 			System.out.println( "\nKILL MONSTER\n" );
 			printTeams( teams );
+			
+			ObjectIO.saveGame( teams, "TestSave" );
+			teams = null;
+			teams = ObjectIO.loadGame( "TestSave" );
+			
+			System.out.println( "\nSAVE/LOAD\n" );
+			printTeams( teams );			
 		}
 		catch ( CharacterException e )
 		{

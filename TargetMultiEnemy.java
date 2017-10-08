@@ -1,6 +1,7 @@
 import java.util.*;
+import java.io.*;
 
-public class TargetMultiEnemy implements TargetingStrategy
+public class TargetMultiEnemy implements TargetingStrategy, Serializable
 {
 	public LinkedList<Targetable> getTargets( Team allyTeam, LinkedList<Team> enemyTeams )
 	{

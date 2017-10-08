@@ -1,6 +1,7 @@
 import java.util.*;
+import java.io.Serializable;
 
-abstract public class Character implements Targetable
+abstract public class Character implements Targetable, Serializable
 {
 	// ===== CLASSFIELDS =====
 	private String name;
