@@ -52,6 +52,19 @@ public class Team implements Targetable, FriendlyObserver, EnemyObserver
 		} // end for
 	} // end method
 	
+	public String toString()
+	{
+		String outStr;
+		
+		outStr = "Team Name: " + name + "\nCharacters:    ";
+		for ( Character chara : characters )
+		{
+			outStr += chara.getName() + "    ";
+		} // end for
+		
+		return outStr;
+	}
+	
 	public void friendlyDeathUpdate()
 	{
 		Character chara;

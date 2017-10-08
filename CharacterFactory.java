@@ -81,21 +81,6 @@ public class CharacterFactory
         
         return chara;
 	} // end method
-	
-	public static LinkedList<Team> teamSort( LinkedList<Character> characterList )
-	{
-		LinkedList<Team> teams = new LinkedList<Team>();
-		Team pcTeam = new Team( "Players" );
-		Team npcTeam = new Team( "NPCs" );
-		
-		for ( Character chara : characterList )
-		{
-			if ( chara instanceof PlayerCharacter )
-			{
-				
-			}
-		} // end for
-	} // end method
         
     private static Ability getAbility( String name, LinkedList<Ability> abilities ) throws CharacterException
     {

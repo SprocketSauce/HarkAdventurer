@@ -3,7 +3,7 @@ import java.util.*;
 public class Game
 {
 	private LinkedList<Ability> abilityList;
-	private LinkedList<Character> characterList;
+	private LinkedList<Team> teamList;
 	
 	public void startGame()
 	{
@@ -41,7 +41,7 @@ public class Game
 	{
 		String filename;
 		boolean retry;
-		characterList = null;
+		teamList = null;
 		
 		do
 		{
@@ -50,8 +50,12 @@ public class Game
 			
 			try
 			{
-				characterList = FileLoader.r
+				teamList = FileLoader.readCharacters( filename, abilityList );
 			}
+			catch ( CharacterException e )
+			{
+				retry = UI.retry( e.getMessage() );
+			} // end try-catch
 		} while ( retry );
-	}
+	} // end method
 } // end class
