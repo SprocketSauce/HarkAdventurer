@@ -1,4 +1,4 @@
 public interface FriendlyObserver
 {
-	void deathUpdate( Character chara );
+	void friendlyDeathUpdate();
 } // end interface

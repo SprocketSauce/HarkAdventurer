@@ -4,9 +4,14 @@ public class PlayerCharacter extends Character
 {
     public void notifyObservers()
     {
-        for ( Observer obv : super.getObservers() )
+        for ( FriendlyObserver obv : super.getFriendlyObservers() )
         {
-            obv.update( 0.05 );
-        } // end for
+        	obv.friendlyDeathUpdate();
+        }
+        
+        for ( EnemyObserver obv : super.getEnemyObservers() )
+        {
+            obv.enemyDeathUpdate( 0.05 );
+        } // end for        
     } // end method
 }

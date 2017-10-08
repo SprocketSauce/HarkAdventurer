@@ -4,9 +4,14 @@ public class NonPlayerCharacter extends Character
 {
     public void notifyObservers()
     {
-        for ( Observer obv : super.getObservers() )
+        for ( FriendlyObserver obv : super.getFriendlyObservers() )
         {
-            obv.update( 0.1 );
-        } // end for
+        	obv.friendlyDeathUpdate();
+        }
+        
+        for ( EnemyObserver obv : super.getEnemyObservers() )
+        {
+            obv.enemyDeathUpdate( 0.1 );
+        } // end for        
     } // end method
 }

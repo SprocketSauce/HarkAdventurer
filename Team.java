@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class Team implements Targetable, Observer
+public class Team implements Targetable, FriendlyObserver, EnemyObserver
 {
 	// ===== CLASSFIELDS =====
 	private String name;	
@@ -49,6 +49,35 @@ public class Team implements Targetable, Observer
 		for ( Character chara : characters )
 		{
 			chara.changeHealth( amount );
+		} // end for
+	} // end method
+	
+	public void friendlyDeathUpdate()
+	{
+		Character chara;
+		boolean found = false;
+		ListIterator<Character> iter = characters.listIterator(0);
+		
+		while ( !found )
+		{
+			chara = iter.next();
+			
+			if ( chara.getCurHealth() <= 0 )
+			{
+				iter.remove();
+				found = true;
+			} // end if
+		} // end while
+	} // end method
+	
+	public void enemyDeathUpdate( double healAmount )
+	{
+		int healBy;
+		
+		for ( Character chara : characters )
+		{
+			healBy = (int)( (double)chara.getMaxHealth() * healAmount );
+			chara.changeHealth( healBy );
 		} // end for
 	} // end method
 }

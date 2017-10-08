@@ -38,6 +38,16 @@ abstract public class Character implements Targetable
 	public int getMaxHealth() { return maxHealth; }
 	public int getCurHealth() { return curHealth; }
 	public LinkedList<Ability> getAbilities() { return (LinkedList<Ability>)abilities.clone(); }
+	
+	public LinkedList<FriendlyObserver> getFriendlyObservers() 
+	{ 
+		return (LinkedList<FriendlyObserver>)fObservers.clone(); 
+	} // end accessor
+	
+	public LinkedList<EnemyObserver> getEnemyObservers() 
+	{ 
+		return (LinkedList<EnemyObserver>)eObservers.clone(); 
+	} // end accessor
 
 	// =====MUTATORS=====
 	public void setName ( String inName )
