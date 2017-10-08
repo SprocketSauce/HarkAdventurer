@@ -1,12 +1,16 @@
 import java.util.*;
 
-abstract public class Character implements Subject, Targetable
+abstract public class Character implements Targetable
 {
+	// ===== CLASSFIELDS =====
 	private String name;
 	private int maxHealth;
 	private int curHealth;
 	private LinkedList<Ability> abilities;
-    private LinkedList<Observer> observers;
+	
+	// ----- Observers -----
+    private LinkedList<FriendlyObserver> fObservers;
+    private LinkedList<EnemyObserver> eObservers;
 
 	//	=====CONSTRUCTORS=====
 	//	-----Default Constructor-----
@@ -16,7 +20,8 @@ abstract public class Character implements Subject, Targetable
 		maxHealth = 1;
 		curHealth = 1;
 		abilities = new LinkedList<Ability>();
-        observers = new LinkedList<Observer>();
+        fObservers = new LinkedList<FriendlyObserver>();
+        eObservers = new LinkedList<EnemyObserver>();
 	} // end constructor
 
 	// -----Alternate Constructor-----
@@ -33,7 +38,6 @@ abstract public class Character implements Subject, Targetable
 	public int getMaxHealth() { return maxHealth; }
 	public int getCurHealth() { return curHealth; }
 	public LinkedList<Ability> getAbilities() { return (LinkedList<Ability>)abilities.clone(); }
-    public LinkedList<Observer> getObservers() { return (LinkedList<Observer>)observers.clone(); }
 
 	// =====MUTATORS=====
 	public void setName ( String inName )
@@ -105,20 +109,14 @@ abstract public class Character implements Subject, Targetable
         return outStr;
     } // end method
 
-    public void registerObserver( Observer inObv )
+    public void registerFriendlyObserver( FriendlyObserver inObv )
     {
-        observers.add( inObv );
+        fObservers.add( inObv );
     } // end mutator
     
-    public void removeObserver( Observer inObv )
+    public void registerEnemyObserver( EnemyObserver inObv )
     {
-        int index;
-        
-        index = observers.indexOf( inObv );
-        if ( index != -1 )
-        {
-            observers.remove( index );
-        }
+        eObservers.add( inObv );
     } // end mutator
     
     abstract public void notifyObservers();
