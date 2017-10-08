@@ -8,6 +8,15 @@ public class Ability
 	private int numDice;
 	private int typeDice;
 
+	public Ability()
+	{
+		type = 'D';
+		name = null;
+		target = null;
+		base = 0;
+		numDice = 0;
+		typeDice = 2;
+	} // end constructor
 	
 	public Ability( char inType, String inName, TargetingStrategy inTarget, int inBase, int inNumDice, int inTypeDice ) throws AbilityException
 	{
@@ -17,7 +26,7 @@ public class Ability
 		setBase( inBase );
 		setNumDice( inNumDice );
 		setTypeDice( inTypeDice );
-	} // end method
+	} // end constructor
 
     // ===== ACCESSORS =====
     public char getType() { return type; }
