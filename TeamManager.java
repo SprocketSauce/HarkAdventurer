@@ -2,28 +2,31 @@ import java.util.*;
 
 public class TeamManager
 {
-	public static LinkedList<Team> createTeams()
+	public static LinkedList<Team> teamSort( LinkedList<Character> characters )
 	{
 		LinkedList<Team> teams = new LinkedList<Team>();
-		Team adventurers = new Team( "Adventurers" );
-		Team monsters = new Team( "Monsters" );
+		Team pcTeam = new Team( "Adventurers" );
+		Team npcTeam = new Team( "Monsters" );
 		
-		teams.add( adventurers );
-		teams.add( monsters );
-	} // end class
-	
-	public static void teamSort( Character chara, Team pcTeam, Team npcTeam )
-	{
-		if ( chara instanceof PlayerCharacter )
+		for ( Character c : characters )
 		{
-			pcTeam.add( chara );												
-		}
-		else
-		{
-			npcTeam.add( chara );
-		} // end if
+			if ( c instanceof PlayerCharacter )
+			{
+				pcTeam.addCharacter( c );
+				c.registerFriendlyObserver( pcTeam );
+				c.registerEnemyObserver( npcTeam );
+			}
+			else
+			{
+				npcTeam.addCharacter( c );
+				c.registerFriendlyObserver( npcTeam );
+				c.registerEnemyObserver( pcTeam );
+			} // end if
+		} // end for
 		
-		chara.registerObserver( pcTeam );
-		chara.registerObserver( npcTeam );
+		teams.add( pcTeam );
+		teams.add( npcTeam );
+		
+		return teams;			
 	} // end method
 } // end class
