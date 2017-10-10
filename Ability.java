@@ -88,19 +88,7 @@ public class Ability implements Serializable
 			default:
 				throw new AbilityException( "Invalid die type" );
 		} // end switch
-	} // end method
-
-	public int getDamage()
-	{
-		int damage = base;
-
-		for ( int i = 0; i < numDice; i++ )
-		{
-			damage = damage + (int)( Math.random() * typeDice + 1.0 );
-		}
-
-		return damage;
-	} // end method
+	} // end method	
     
     public String toString()
     {

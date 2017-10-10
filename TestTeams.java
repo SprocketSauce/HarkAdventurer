@@ -6,6 +6,7 @@ public class TestTeams
 	{
 		LinkedList<Ability> abilities;
 		LinkedList<Team> teams;
+		Ability ability;
 		
 		try
 		{
@@ -28,7 +29,13 @@ public class TestTeams
 			teams = ObjectIO.loadGame( "TestSave" );
 			
 			System.out.println( "\nSAVE/LOAD\n" );
-			printTeams( teams );			
+			printTeams( teams );
+			
+			System.out.println( "\nFIRE BOLT ON THRAWN\n" );
+			ability = teams.get(0).getCharacters().get(0).getAbilities().get(1);
+			System.out.println( ability.toString() + "\n" );
+			ability.getEffect().resolve( teams.get(1).getCharacters().get(0), ability.getDamage() );
+			printTeams( teams );
 		}
 		catch ( CharacterException e )
 		{

@@ -7,22 +7,24 @@ public class UI
         System.out.println( "=================================================\nHARK, ADVENTURERS!\nBy Jack McNair 18927430\n=================================================\n" );
     } // end method
     
-    public static void mainMenu()
+    public static void mainMenu( GameController game )
     {
         int selection;
-        GameController game;
 
-		selection = inputInt( 1, 2, "1.    New Game\n2.    Exit\n\nSelection: " );
+		selection = inputInt( 1, 3, "1.    New Game\n2.    Load Game\n3.    Exit\n\nSelection: " );
 		
 		if ( selection == 1 )
 		{
-			game = new GameController();
 			game.startGame();
-		} // end if
+		}
+		else if ( selection == 2 )
+		{
+			game.loadGame();
+		}
 		else
 		{
 			System.out.println( "Have a nice day." );
-		}
+		} // end if
     } // end method
     
     public static String inputAbilities()
@@ -32,8 +34,18 @@ public class UI
     
     public static String inputCharacters()
     {
-    	return inputString( "Enter characters file: ");
-    }
+    	return inputString( "Enter characters file: " );
+    } // end method
+    
+    public static String inputSaveAs()
+    {
+    	return inputString( "Save as: " );
+    } // end method
+    
+    public static String inputLoadGame()
+    {
+    	return inputString( "Load game: " );
+    } // end method
 
 	public static int inputInt( int min, int max, String prompt )
 	{
@@ -82,11 +94,11 @@ public class UI
 	}
 	
 	// WORK IN PROGRESS
-	public static void roundMenu( LinkedList<Team> teamList )
+	public static void roundMenu( GameController game )
 	{
 		int selection;
 		
-		System.out.println( "=================================================\n INTERMISSION\n=================================================\n" )
+		System.out.println( "=================================================\n NEW ROUND!\n=================================================\n" );
 		
 		do
 		{
@@ -95,14 +107,86 @@ public class UI
 			switch ( selection )
 			{
 				case 1:
+					game.playRound();
 					break;
 				case 2:
+					game.saveGame();
+					System.out.println( "File saved" );
 					break;
 				case 3:
+					game.loadGame();
+					System.out.println( "File loaded" );
 					break;
 				case 4:
 					break;
 			} // end switch
 		} while ( selection == 2 || selection == 3 );		
+	} // end method
+	
+	public static Ability turnMenu( Character chara )
+	{
+		int selection = 0;
+		Ability ability = null;
+		
+		while ( ability == null && selection != 2 )
+		{
+			System.out.println( "\n" + chara.getName() + "'s turn\n" );
+			selection = inputInt( 1, 2, "1)    Use Ability\n2)    Pass\n\nSelection: " );
+			
+			if ( selection == 1 )
+			{
+				ability = abilityMenu( chara.getAbilities() );
+			} // end if			
+		} // end while	
+		
+		return ability;	
+	} // end method
+	
+	public static Ability abilityMenu( LinkedList<Ability> abilities )
+	{
+		int selection;
+		String prompt;
+		Ability ability = null;
+		
+		prompt = "Select Ability:\n\n";		
+		for ( int i = 0; i < abilities.size(); i++ )
+		{
+			prompt = prompt + i + ")    " + abilities.get(i).toString() + "\n\n";
+		} // end for		
+		prompt = prompt + abilities.size() + ")    Cancel\n\nSelection: ";
+		
+		selection = inputInt( 0, abilities.size(), prompt );
+		
+		if ( selection != abilities.size() )
+		{
+			ability = abilities.get( selection );
+		} // end if
+		
+		return ability;
+	} // end method
+	
+	public static Targetable targetMenu( LinkedList<Targetable> targets )
+	{
+		int selection;
+		String prompt;
+		Targetable target;
+		
+		prompt = "Seletct Target:\n\n";
+		for ( int i = 0; i < targets.size(); i++ )
+		{
+			prompt = prompt + i + ")    " + targets.get(i).toString() + "\n\n";
+		} // end for
+		prompt = prompt + "Selection: ";
+		
+		selection = inputInt( 0, targets.size() - 1, prompt );
+		
+		target = targets.get( selection );
+		
+		return target;
+	} // end method
+	
+	public static void endGame( Team victors )
+	{
+		System.out.println( "Congratulations, " + victors.getName() + "!\nYou have vanquished your enemies!" );
 	}
 }

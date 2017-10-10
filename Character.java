@@ -79,7 +79,10 @@ abstract public class Character implements Targetable, Serializable
 			curHealth = 0;
 			notifyObservers();
 		}
-		curHealth = inCur;
+		else
+		{
+			curHealth = inCur;
+		}		
 	} // end mutator
 
 	public void changeHealth( int amount )
