@@ -3,7 +3,7 @@ import java.io.Serializable;
 public class Ability implements Serializable
 {
 	// ===== CLASSFIELDS =====	
-	private char type;
+	private AbilityEffect effect;
 	private String name;
 	private TargetingStrategy target;
 	private int base;
@@ -12,7 +12,7 @@ public class Ability implements Serializable
 
 	public Ability()
 	{
-		type = 'D';
+		effect = null;
 		name = null;
 		target = null;
 		base = 0;
@@ -20,9 +20,9 @@ public class Ability implements Serializable
 		typeDice = 2;
 	} // end constructor
 	
-	public Ability( char inType, String inName, TargetingStrategy inTarget, int inBase, int inNumDice, int inTypeDice ) throws AbilityException
+	public Ability( AbilityEffect inEffect, String inName, TargetingStrategy inTarget, int inBase, int inNumDice, int inTypeDice ) throws AbilityException
 	{
-		setType( inType );
+		setEffect( inEffect );
 		setName( inName );
 		setTarget( inTarget );
 		setBase( inBase );
@@ -31,7 +31,7 @@ public class Ability implements Serializable
 	} // end constructor
 
     // ===== ACCESSORS =====
-    public char getType() { return type; }
+    public AbilityEffect getEffect() { return effect; }
     public String getName() { return new String( name ); }
     public TargetingStrategy getTarget() { return target; }
     public int getBase() { return base; }
@@ -39,16 +39,9 @@ public class Ability implements Serializable
     public int getTypeDice() { return typeDice; }
     
     // ===== MUTATORS =====
-	public void setType( char inType ) throws AbilityException
+	public void setEffect( AbilityEffect inEffect )
 	{
-		if ( inType == 'H' || inType == 'D' )
-		{
-			type = inType;
-		}
-		else
-		{
-			throw new AbilityException( "Invalid ability type" );
-		} // end if
+		effect = inEffect;
 	} // end method
 
 	public void setName( String inName )
@@ -113,18 +106,8 @@ public class Ability implements Serializable
     {
         String outStr;
         
-        outStr = name + "\nType: ";
-        if ( type == 'H' )
-        {
-            outStr += "Heal";
-        }
-        else if ( type == 'D' )
-        {
-            outStr += "Damage";
-        } // end if
-        
-        outStr += "    Target: " + target.toString();
-        
+        outStr = name + "\nType: " + effect.toString();
+        outStr += "    Target: " + target.toString();        
         outStr += "    Damage: " + numDice + "d" + typeDice + " + " + base;
         
         return outStr;

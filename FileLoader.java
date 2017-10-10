@@ -140,7 +140,6 @@ public class FileLoader
 
 		ability = AbilityFactory.createAbility( type, target );
 
-		ability.setType( type );
 		ability.setName( name );
 		ability.setBase( base );
 		ability.setNumDice( numDice );

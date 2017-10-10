@@ -11,6 +11,7 @@ public class AbilityFactory
 	{
 		Ability ability = null;
 		TargetingStrategy strat;
+		AbilityEffect effect;
 		
 		if ( testAbility == null )
 		{
@@ -18,7 +19,9 @@ public class AbilityFactory
 		
 			switch ( type )
 			{
-				case 'H': case 'h':
+				case 'H': case 'h':				
+				effect = new Heal();
+				
 				switch ( target )
 				{
 					case 'S': case 's':
@@ -35,6 +38,8 @@ public class AbilityFactory
 				break;
 			
 				case 'D': case 'd':
+				effect = new Damage();
+				
 				switch ( target )
 				{
 					case 'S': case 's':
@@ -53,7 +58,8 @@ public class AbilityFactory
 				default:
 				throw new AbilityException( "Invalid ability type" );
 			} // end switch
-		
+			
+			ability.setEffect( effect );
 			ability.setTarget( strat );
 		}
 		else
