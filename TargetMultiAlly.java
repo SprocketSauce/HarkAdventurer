@@ -1,5 +1,9 @@
+package harkadventurer.control;
+
 import java.util.*;
 import java.io.*;
+import harkadventurer.model.Targetable;
+import harkadventurer.model.Team;
 
 public class TargetMultiAlly implements TargetingStrategy, Serializable
 {

@@ -1,4 +1,8 @@
+package harkadventurer.control;
+
 import java.util.*;
+import harkadventurer.model.Targetable;
+import harkadventurer.model.Team;
 
 public interface TargetingStrategy
 {

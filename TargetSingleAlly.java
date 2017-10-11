@@ -1,5 +1,10 @@
+package harkadventurer.control;
+
 import java.util.*;
 import java.io.*;
+import harkadventurer.model.Targetable;
+import harkadventurer.model.Character;
+import harkadventurer.model.Team;
 
 public class TargetSingleAlly implements TargetingStrategy, Serializable
 {

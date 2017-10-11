@@ -1,5 +1,12 @@
+package harkadventurer.model;
+
 import java.util.*;
 import java.io.Serializable;
+import harkadventurer.model.Targetable;
+import harkadventurer.model.Ability;
+import harkadventurer.model.FriendlyObserver;
+import harkadventurer.model.EnemyObserver;
+import harkadventurer.excep.CharacterException;
 
 abstract public class Character implements Targetable, Serializable
 {

@@ -1,3 +1,5 @@
+package harkadventurer.model;
+
 import java.util.*;
 import java.io.Serializable;
 

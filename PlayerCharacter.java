@@ -1,3 +1,5 @@
+package harkadventurer.model;
+
 import java.util.*;
 
 public class PlayerCharacter extends Character

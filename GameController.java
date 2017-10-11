@@ -1,4 +1,11 @@
+package harkadventurer.control;
+
 import java.util.*;
+import harkadventurer.view.UI;
+import harkadventurer.control.*;
+import harkadventurer.model.*;
+import harkadventurer.model.Character;
+import harkadventurer.excep.*;
 
 public class GameController
 {

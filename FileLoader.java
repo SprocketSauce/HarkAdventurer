@@ -1,5 +1,13 @@
+package harkadventurer.control;
+
 import java.util.*;
 import java.io.*;
+import harkadventurer.model.Team;
+import harkadventurer.model.Ability;
+import harkadventurer.model.Character;
+import harkadventurer.control.AbilityFactory;
+import harkadventurer.control.CharacterFactory;
+import harkadventurer.excep.*;
 
 public class FileLoader
 {

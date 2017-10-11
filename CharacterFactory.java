@@ -1,4 +1,10 @@
+package harkadventurer.control;
+
 import java.util.*;
+import harkadventurer.model.Character;
+import harkadventurer.model.PlayerCharacter;
+import harkadventurer.model.NonPlayerCharacter;
+import harkadventurer.excep.CharacterException;
 
 public class CharacterFactory
 {

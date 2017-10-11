@@ -1,4 +1,8 @@
+package harkadventurer.control;
+
 import java.io.Serializable;
+import harkadventurer.control.AbilityEffect;
+import harkadventurer.model.Targetable;
 
 public class Heal implements AbilityEffect, Serializable
 {

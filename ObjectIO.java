@@ -1,5 +1,8 @@
+package harkadventurer.control;
+
 import java.util.*;
 import java.io.*;
+import harkadventurer.model.Team;
 
 public class ObjectIO
 {

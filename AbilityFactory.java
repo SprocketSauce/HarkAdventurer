@@ -1,3 +1,8 @@
+package harkadventurer.control;
+
+import harkadventurer.model.Ability;
+import harkadventurer.excep.AbilityException;
+
 public class AbilityFactory
 {
 	private static Ability testAbility = null;

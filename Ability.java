@@ -1,3 +1,8 @@
+package harkadventurer.model;
+
+import harkadventurer.control.AbilityEffect;
+import harkadventurer.control.TargetingStrategy;
+import harkadventurer.excep.AbilityException;
 import java.io.Serializable;
 
 public class Ability implements Serializable

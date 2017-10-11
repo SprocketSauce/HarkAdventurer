@@ -1,4 +1,9 @@
+package harkadventurer.control;
+
 import java.util.*;
+import harkadventurer.model.Team;
+import harkadventurer.model.Character;
+import harkadventurer.model.PlayerCharacter;
 
 public class TeamManager
 {

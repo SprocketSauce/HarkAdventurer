@@ -1,4 +1,8 @@
+package harkadventurer.view;
+
 import java.util.*;
+import harkadventurer.control.*;
+import harkadventurer.model.*;
 
 public class UI
 {
@@ -123,7 +127,7 @@ public class UI
 		} while ( selection == 2 || selection == 3 );		
 	} // end method
 	
-	public static Ability turnMenu( Character chara )
+	public static Ability turnMenu( harkadventurer.model.Character chara )
 	{
 		int selection = 0;
 		Ability ability = null;
