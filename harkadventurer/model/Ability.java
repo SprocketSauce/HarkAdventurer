@@ -6,7 +6,6 @@ import harkadventurer.excep.AbilityException;
 import java.io.Serializable;
 
 /**
- * <h1>Ability</h1>
  * Ability-type objects store all information pertaining to an ability, including its
  * name, base damage, dice, targeting and effect.
  *

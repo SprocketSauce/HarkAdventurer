@@ -126,7 +126,7 @@ abstract public class Character implements Targetable, Serializable
 		if ( inMax < 20 )
 		{
 			throw new CharacterException( "Max Health must be at least 20" );
-		}UI
+		}
 		else
 		{
 			maxHealth = inMax;
@@ -162,7 +162,7 @@ abstract public class Character implements Targetable, Serializable
 	 * Changes the character's current health by the input amount. The character will
 	 * be healed if positive, damaged if negative.
 	 * 
-	 * @param inAmount The amount by which to change the charactet's health
+	 * @param amount The amount by which to change the charactet's health
 	 */
 	public void changeHealth( int amount )
 	{
@@ -180,45 +180,44 @@ abstract public class Character implements Targetable, Serializable
 	} // end mutator
 	
 	/**
-	 * Two characters are equal
+	 * Returns a string containing the character's name, health and abilities.
+	 *
+	 * @return A string containing details about the character
 	 */
-	@Override
-	public boolean equals( Object inObj )
+	public String toString()
 	{
-		Character inChara;
-		boolean result = false;
-		
-		if ( inObj instanceof Character )
+		String outStr;
+        	outStr = "Name: " + name + "    HP: " + curHealth + "/" + maxHealth + "\nAbilities:    ";
+		for( Ability a : abilities )
 		{
-			inChara = (Character)inObj;
-			result = ( name == inChara.getName() && maxHealth == inChara.getMaxHealth() && curHealth == inChara.getCurHealth() && abilities.equals( inChara.getAbilities() ) );
-		}
-		
-		return result;
-	} // end method
-    
-    public String toString()
-    {
-        String outStr;
-        
-        outStr = "Name: " + name + "    HP: " + curHealth + "/" + maxHealth + "\nAbilities:    ";
-        for( Ability a : abilities )
-        {
-            outStr += a.getName() + "    ";
-        } // end for
+			outStr += a.getName() + "    ";
+		} // end for
         
         return outStr;
-    } // end method
+	} // end method
 
-    public void registerFriendlyObserver( FriendlyObserver inObv )
-    {
-        fObservers.add( inObv );
-    } // end mutator
+	/**
+	 * Adds an observer to the character's list of friendly observers.
+	 *
+	 * @param inObv The observer to register
+	 */
+	public void registerFriendlyObserver( FriendlyObserver inObv )
+	{
+		fObservers.add( inObv );
+	} // end mutator
     
-    public void registerEnemyObserver( EnemyObserver inObv )
-    {
-        eObservers.add( inObv );
-    } // end mutator
+	/**
+	 * Adds an observer to the character's list of enemy observers.
+	 *
+	 * @param inObv The observer to register
+	 */
+	public void registerEnemyObserver( EnemyObserver inObv )
+	{
+		eObservers.add( inObv );
+	} // end mutator
     
-    abstract public void notifyObservers();
+	/**
+	 * Alerts the character's observers that the character has died.
+	 */
+	abstract public void notifyObservers();
 } // end class
