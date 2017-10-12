@@ -73,7 +73,8 @@ public class GameController
 	} // end method
 	
 	/**
-	 * Loads a list of teams from an object file, then begins a round.
+	 * Loads a list of teams from an object file, then begins a round. Returns to the main menu if
+	 * no file is successfully loaded and the game has no teams currently active.
 	 */
 	public void loadGame()
 	{
@@ -86,9 +87,17 @@ public class GameController
 		if ( inTeams != null )
 		{
 			teams = inTeams;
-		} // end if
+			ui.fileLoaded();
+		}
 
-		ui.roundMenu( this );
+		if ( teams != null )
+		{
+			ui.roundMenu( this );
+		}
+		else
+		{
+			ui.mainMenu( this );
+		} // end if			
 	} // end method
 	
 	/**

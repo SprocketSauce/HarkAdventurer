@@ -180,12 +180,11 @@ public class UI
 					break;
 				case 3:
 					game.loadGame();
-					System.out.println( "File loaded" );
 					break;
 				case 4:
 					break;
 			} // end switch
-		} while ( selection == 2 || selection == 3 );		
+		} while ( selection == 2 );		
 	} // end method
 	
 	/**
@@ -269,6 +268,14 @@ public class UI
 		
 		return target;
 	} // end method
+
+	/**
+	 * Informs the user that a file has been successfully loaded.
+	 */
+	public void fileLoaded()
+	{
+		System.out.println( "File successfully loaded" );
+	}
 	
 	/**
 	 * Congratulates the victorious team on their glorious triumph.

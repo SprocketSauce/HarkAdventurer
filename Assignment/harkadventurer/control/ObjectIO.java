@@ -34,7 +34,7 @@ public class ObjectIO
 		}
 		catch ( IOException e )
 		{
-			System.out.println( e.getMessage() );			
+			System.out.println( "Error: " + e.getMessage() );			
 			try { file.close(); } catch ( IOException e2 ) { }
 		}
 	} // end method
@@ -87,12 +87,14 @@ public class ObjectIO
 		}
 		catch ( IOException e )
 		{
-			System.out.println( e.getMessage() );			
-			try { file.close(); } catch ( IOException e2 ) { }
+			System.out.println( "Error: " + e.getMessage() );			
+			try { file.close(); } 
+			catch ( IOException e2 ) { }
+			catch ( NullPointerException e2 ) { }
 		}
 		catch ( ClassNotFoundException e )
 		{
-			System.out.println( e.getMessage() );			
+			System.out.println( "Error: " + e.getMessage() );			
 			try { file.close(); } catch ( IOException e2 ) { }
 		} // end try-catch
 		
