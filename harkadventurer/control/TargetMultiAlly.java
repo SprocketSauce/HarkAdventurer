@@ -17,7 +17,7 @@ public class TargetMultiAlly implements TargetingStrategy, Serializable
 	 * Returns all valid targets of an ability, in this case, the allied team.
 	 *
 	 * @param allyTeam The allied team
-	 * @param enemyTeam A list of enemy teams
+	 * @param enemyTeams A list of enemy teams
 	 * @return A list containing only the allied team
 	 */
 	public LinkedList<Targetable> getTargets( Team allyTeam, LinkedList<Team> enemyTeams )

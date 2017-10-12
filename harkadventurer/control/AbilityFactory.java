@@ -3,15 +3,40 @@ package harkadventurer.control;
 import harkadventurer.model.Ability;
 import harkadventurer.excep.AbilityException;
 
+/**
+ * A factory for constructing Ability-class objects. Constructs abilities, then constructs and applies
+ * their targeting and effect logic.
+ *
+ * @author Jack McNair 18927430
+ * @since 10/10/2017
+ */
 public class AbilityFactory
 {
 	private Ability testAbility = null;
 	
+	/**
+	 * Sets a test ability. If a test ability is set, the factory will return the test ability
+	 * instead of constructing a new one. Use if you want the factory to return a mock ability.
+	 *
+	 * @param test The test ability
+	 */
 	public void setTestAbility( Ability test )
 	{
 		testAbility = test;
 	} // end method
 	
+	/**
+	 * Constructs an ability based on the input chars. The input characters should be the
+	 * "Type" and "Target" columns of the input file. Assumes that all damage abilities target
+	 * enemies and all healing abilities target allies.
+	 *
+	 * @param type A char determining the ability's type - 'H' for healing and 'D' for damage
+	 * @param target A char determining the ability's targeting logic - 'S' for single target and
+	 * 'M' for multi
+	 * @return An unnamed ability with 0 base damage that rolls 0d2, with the appropriate targeting
+	 * and execution logic
+	 * @throws AbilityException If either of the inputs are invalid
+	 */
 	public Ability createAbility( char type, char target ) throws AbilityException
 	{
 		Ability ability = null;

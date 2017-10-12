@@ -9,12 +9,27 @@ import harkadventurer.control.AbilityFactory;
 import harkadventurer.control.CharacterFactory;
 import harkadventurer.excep.*;
 
+/**
+ * FileLoader objects read Character and Ability txt files and convert them into characters and
+ * abilities. The characters are sorted into teams. The exact nature of the characters, abilities and
+ * teams created depends on the factories input at construction.
+ *
+ * @author Jack McNair 18927430
+ * @since 10/10/2017
+ */
 public class FileLoader
 {
 	private CharacterFactory charFact;
 	private AbilityFactory abilFact;
 	private TeamManager manager;
 
+	/**
+	 * Constructs a new FileLoader that uses the specified factories.
+	 *
+	 * @param inCharFact The desired Character Factory
+	 * @param inAbilFact The desired Ability Factory
+	 * @param inManager The desired Team Manager
+	 */
 	public FileLoader( CharacterFactory inCharFact, AbilityFactory inAbilFact, TeamManager inManager )
 	{
 		charFact = inCharFact;
@@ -22,6 +37,14 @@ public class FileLoader
 		manager  = inManager;
 	}
 
+	/**
+	 * Reads an abilities file. The abilities are constructed by the factory, placed into a linked 
+	 * list and returned.
+	 *
+	 * @param filename The name of the file to be read
+	 * @return A list of abilities
+	 * @throws AbilityException If the file cannot be loaded or has invalid formatting
+	 */
 	public LinkedList<Ability> readAbilities( String filename ) throws AbilityException
 	{
 		LinkedList<String> lineList;
@@ -55,6 +78,16 @@ public class FileLoader
 		return abilities;
 	} // end method
 
+	/**
+	 * Reads a characters file. The characters are constructed by the factory and sorted into teams
+	 * by the team manager. The teams are then returned. Abilities must be constructed first.
+	 *
+	 * @param filename The name of the file to be read
+	 * @param abilities The list of valid abilities
+	 * @return A list of teams containing the loaded characters
+	 * @throws CharacterException If the file fails to load, has invalid formatting or any of the
+	 * characters have abilities that don't exist
+	 */
 	public LinkedList<Team> readCharacters( String filename, LinkedList<Ability> abilities ) throws CharacterException
 	{
         Character chara;
@@ -92,6 +125,13 @@ public class FileLoader
         return teams;
 	} // end method
 
+	// ===== PRIVATE METHODS =====
+	/*
+	 * Reads an input file, converting each line into an entry in a list of strings.
+	 *
+	 * Parameters:
+	 * filename - The name of the file to be read.
+	 */
 	private LinkedList<String> readFile( String fileName ) throws IOException
 	{
 		FileInputStream fileStrm = null;
@@ -175,16 +215,16 @@ public class FileLoader
 		Ability ability;
 		dataParts = data.split(",");
             
-        if ( dataParts.length < 3 )
-        {
-            throw new CharacterException( "Insufficient data" );
-        } // end if
-        
-        try
-        {
-            maxHealth = Integer.parseInt( dataParts[2] );
-        }
-        catch ( NumberFormatException e )
+		if ( dataParts.length < 3 )
+		{
+			throw new CharacterException( "Insufficient data" );
+		} // end if
+		
+		try
+		{
+			maxHealth = Integer.parseInt( dataParts[2] );
+		}
+		catch ( NumberFormatException e )
 		{
 			throw new CharacterException( "Health is not an integer" );
 		} // end try-catch
@@ -192,35 +232,35 @@ public class FileLoader
 		chara = charFact.createCharacter( dataParts[0].charAt(0) );
 		
 		chara.setName( dataParts[1] );
-        chara.setMaxHealth( maxHealth );
-        chara.setCurHealth( maxHealth );
+		chara.setMaxHealth( maxHealth );
+		chara.setCurHealth( maxHealth );
             
-        for ( int i = 3; i < dataParts.length; i++ )
-        {
-            ability = getAbility( dataParts[i], abilities );
-            chara.addAbility( ability );
-        } // end for
+		for ( int i = 3; i < dataParts.length; i++ )
+		{
+			ability = getAbility( dataParts[i], abilities );
+			chara.addAbility( ability );
+		} // end for
         
-        return chara;
+		return chara;
 	} // end method
 	
 	private Ability getAbility( String name, LinkedList<Ability> abilities ) throws CharacterException
-    {
-        Ability ability = null;
-        
-        for ( Ability a : abilities )
-        {
-            if ( name.equals( a.getName() ) )
-            {
-                ability = a;
-            } // end if
-        } // end for
-        
-        if ( ability == null )
-        {
-            throw new CharacterException( "Ability " + name + " does not exist" );
-        } // end if
-        
-        return ability;
-    } // end method
+	{
+		Ability ability = null;
+
+		for ( Ability a : abilities )
+		{
+			if ( name.equals( a.getName() ) )
+			{
+				ability = a;
+			} // end if
+		} // end for
+
+		if ( ability == null )
+		{
+			throw new CharacterException( "Ability " + name + " does not exist" );
+		} // end if
+
+		return ability;
+	} // end method
 } // end class
