@@ -1,14 +1,23 @@
 import java.util.*;
-import harkadventurer.control.GameController;
+import harkadventurer.control.*;
 import harkadventurer.view.UI;
 
 public class TestRun
 {
 	public static void main( String[] args )
 	{
-		GameController game = new GameController();
+		UI ui = new UI();
+
+		CharacterFactory charFact = new CharacterFactory();
+		AbilityFactory abilFact = new AbilityFactory();
+		TeamManager manager = new TeamManager();
+		FileLoader loader = new FileLoader( charFact, abilFact, manager );
+
+		ObjectIO objLoader = new ObjectIO();
 		
-		UI.titleCard();
-		UI.mainMenu( game );
+		GameController game = new GameController( ui, loader, objLoader );
+		
+		ui.titleCard();
+		ui.mainMenu( game );
 	} // end main
 } // end class

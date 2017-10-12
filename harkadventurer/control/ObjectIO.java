@@ -6,7 +6,7 @@ import harkadventurer.model.Team;
 
 public class ObjectIO
 {
-	public static void saveGame( LinkedList<Team> teams, String filename )
+	public void saveGame( LinkedList<Team> teams, String filename )
 	{
 		FileOutputStream file = null;
 		ObjectOutputStream objOut = null;
@@ -27,9 +27,11 @@ public class ObjectIO
 		}
 	} // end method
 	
-	public static LinkedList<Team> loadGame( String filename )
+	public LinkedList<Team> loadGame( String filename )
 	{
-		Object object;		
+		Object object;
+		boolean isValid = true;
+		LinkedList<List> list = null;		
 		LinkedList<Team> teams = null;
 		FileInputStream file = null;
 		ObjectInputStream objIn = null;
@@ -43,8 +45,24 @@ public class ObjectIO
 			
 			if ( object instanceof LinkedList )
 			{
-				teams = (LinkedList<Team>)object;
+				list = (LinkedList)object;
+				for ( Object o : list )
+				{
+					if ( !( o instanceof Team ) )
+					{
+						isValid = false;
+					} // end if
+				} // end for
 			}
+			else
+			{
+				isValid = false;
+			} // end if
+
+			if ( isValid )
+			{
+				teams = (LinkedList<Team>)object;
+			} // end if
 			
 			objIn.close();
 			file.close();
@@ -58,7 +76,7 @@ public class ObjectIO
 		{
 			System.out.println( e.getMessage() );			
 			try { file.close(); } catch ( IOException e2 ) { }
-		}
+		} // end try-catch
 		
 		return teams;
 	} // end method

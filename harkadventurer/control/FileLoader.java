@@ -11,7 +11,18 @@ import harkadventurer.excep.*;
 
 public class FileLoader
 {
-	public static LinkedList<Ability> readAbilities( String filename ) throws AbilityException
+	private CharacterFactory charFact;
+	private AbilityFactory abilFact;
+	private TeamManager manager;
+
+	public FileLoader( CharacterFactory inCharFact, AbilityFactory inAbilFact, TeamManager inManager )
+	{
+		charFact = inCharFact;
+		abilFact = inAbilFact;
+		manager  = inManager;
+	}
+
+	public LinkedList<Ability> readAbilities( String filename ) throws AbilityException
 	{
 		LinkedList<String> lineList;
 		LinkedList<Ability> abilities = new LinkedList<Ability>();
@@ -44,7 +55,7 @@ public class FileLoader
 		return abilities;
 	} // end method
 
-	public static LinkedList<Team> readCharacters( String filename, LinkedList<Ability> abilities ) throws CharacterException
+	public LinkedList<Team> readCharacters( String filename, LinkedList<Ability> abilities ) throws CharacterException
 	{
         Character chara;
         String line;
@@ -76,12 +87,12 @@ public class FileLoader
 			characters.add( chara );
 		} // end for
 		
-        teams = TeamManager.teamSort( characters );
+        teams = manager.teamSort( characters );
         
         return teams;
 	} // end method
 
-	private static LinkedList<String> readFile( String fileName ) throws IOException
+	private LinkedList<String> readFile( String fileName ) throws IOException
 	{
 		FileInputStream fileStrm = null;
 		InputStreamReader rdr;
@@ -115,7 +126,7 @@ public class FileLoader
 		return lineList;
 	} // end method
 	
-	private static Ability readAbilityLine( String data ) throws AbilityException
+	private Ability readAbilityLine( String data ) throws AbilityException
 	{
 		char type, target;
 		String name;
@@ -146,7 +157,7 @@ public class FileLoader
 			throw new AbilityException( "Invalid integer" );
 		} // end try-catch
 
-		ability = AbilityFactory.createAbility( type, target );
+		ability = abilFact.createAbility( type, target );
 
 		ability.setName( name );
 		ability.setBase( base );
@@ -156,7 +167,7 @@ public class FileLoader
 		return ability;
 	} // end method
 	
-	private static Character readCharacterLine( String data, LinkedList<Ability> abilities ) throws CharacterException
+	private Character readCharacterLine( String data, LinkedList<Ability> abilities ) throws CharacterException
 	{
 		int maxHealth;
 		String[] dataParts;
@@ -178,7 +189,7 @@ public class FileLoader
 			throw new CharacterException( "Health is not an integer" );
 		} // end try-catch
 		
-		chara = CharacterFactory.createCharacter( dataParts[0].charAt(0) );
+		chara = charFact.createCharacter( dataParts[0].charAt(0) );
 		
 		chara.setName( dataParts[1] );
         chara.setMaxHealth( maxHealth );
@@ -193,7 +204,7 @@ public class FileLoader
         return chara;
 	} // end method
 	
-	private static Ability getAbility( String name, LinkedList<Ability> abilities ) throws CharacterException
+	private Ability getAbility( String name, LinkedList<Ability> abilities ) throws CharacterException
     {
         Ability ability = null;
         

@@ -7,7 +7,7 @@ import harkadventurer.model.PlayerCharacter;
 
 public class TeamManager
 {
-	public static LinkedList<Team> teamSort( LinkedList<Character> characters )
+	public LinkedList<Team> teamSort( LinkedList<Character> characters )
 	{
 		LinkedList<Team> teams = new LinkedList<Team>();
 		Team pcTeam = new Team( "Adventurers" );

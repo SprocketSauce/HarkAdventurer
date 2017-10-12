@@ -10,12 +10,19 @@ import harkadventurer.excep.*;
 public class GameController
 {
 	// ===== CLASSFIELDS =====
-	private LinkedList<Team> teams;
 	
-	public GameController()
+	private LinkedList<Team> teams;
+	private UI ui;
+	private FileLoader loader;
+	private ObjectIO objLoader;
+	
+	public GameController( UI inUI, FileLoader inLoader, ObjectIO inObjLoader )
 	{
 		teams = null;
-	}
+		ui = inUI;
+		loader = inLoader;
+		objLoader = inObjLoader;
+	} // end method
 	
 	public void startGame()
 	{
@@ -31,7 +38,7 @@ public class GameController
 		
 		if ( teams != null )
 		{
-			UI.roundMenu( this );
+			ui.roundMenu( this );
 		} // end if
 	} // end method
 	
@@ -39,17 +46,17 @@ public class GameController
 	{
 		String filename;
 		
-		filename = UI.inputSaveAs();
-		ObjectIO.saveGame( teams, filename );
+		filename = ui.inputSaveAs();
+		objLoader.saveGame( teams, filename );
 	} // end method
 	
 	public void loadGame()
 	{
 		String filename;
 		
-		filename = UI.inputLoadGame();
-		teams = ObjectIO.loadGame( filename );
-		UI.roundMenu( this );
+		filename = ui.inputLoadGame();
+		teams = objLoader.loadGame( filename );
+		ui.roundMenu( this );
 	} // end method
 	
 	public void playRound()
@@ -71,7 +78,7 @@ public class GameController
 			while ( iter.hasNext() && teams.size() != 1 )
 			{
 				chara = iter.next();
-				ability = UI.turnMenu( chara );
+				ability = ui.turnMenu( chara );
 				
 				if ( ability != null )
 				{
@@ -84,11 +91,11 @@ public class GameController
 		
 		if ( teams.size() == 1 )
 		{
-			UI.endGame( teams.get(0) );
+			ui.endGame( teams.get(0) );
 		}
 		else
 		{
-			UI.roundMenu( this );
+			ui.roundMenu( this );
 		} // end if
 	} // end method
 	
@@ -100,7 +107,7 @@ public class GameController
 		AbilityEffect effect = ability.getEffect();
 		
 		validTargets = targeting.getTargets( curTeam, enemyTeams );
-		target = UI.targetMenu( validTargets );
+		target = ui.targetMenu( validTargets );
 		
 		effect.resolve( target, rollDice( ability ) );
 	} // end method
@@ -142,15 +149,15 @@ public class GameController
 		do
 		{
 			retry = false;
-			filename = UI.inputAbilities();
+			filename = ui.inputAbilities();
 		
 			try
 			{
-				abilityList = FileLoader.readAbilities( filename );
+				abilityList = loader.readAbilities( filename );
 			}
 			catch ( AbilityException e )
 			{
-				retry = UI.retry( e.getMessage() );
+				retry = ui.retry( e.getMessage() );
 			} // end try-catch
 		} while ( retry );
 		
@@ -165,15 +172,15 @@ public class GameController
 		do
 		{
 			retry = false;
-			filename = UI.inputCharacters();
+			filename = ui.inputCharacters();
 			
 			try
 			{
-				teams = FileLoader.readCharacters( filename, abilityList );
+				teams = loader.readCharacters( filename, abilityList );
 			}
 			catch ( CharacterException e )
 			{
-				retry = UI.retry( e.getMessage() );
+				retry = ui.retry( e.getMessage() );
 			} // end try-catch
 		} while ( retry );
 	} // end method

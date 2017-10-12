@@ -5,14 +5,14 @@ import harkadventurer.excep.AbilityException;
 
 public class AbilityFactory
 {
-	private static Ability testAbility = null;
+	private Ability testAbility = null;
 	
-	public static void setTestAbility( Ability test )
+	public void setTestAbility( Ability test )
 	{
 		testAbility = test;
 	} // end method
 	
-	public static Ability createAbility( char type, char target ) throws AbilityException
+	public Ability createAbility( char type, char target ) throws AbilityException
 	{
 		Ability ability = null;
 		TargetingStrategy strat;

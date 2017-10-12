@@ -6,12 +6,12 @@ import harkadventurer.model.*;
 
 public class UI
 {
-    public static void titleCard()
+    public void titleCard()
     {
         System.out.println( "=================================================\nHARK, ADVENTURERS!\nBy Jack McNair 18927430\n=================================================\n" );
     } // end method
     
-    public static void mainMenu( GameController game )
+    public void mainMenu( GameController game )
     {
         int selection;
 
@@ -31,27 +31,27 @@ public class UI
 		} // end if
     } // end method
     
-    public static String inputAbilities()
+    public String inputAbilities()
     {
     	return inputString( "Enter abilities file: " );    	  	
     } // end method
     
-    public static String inputCharacters()
+    public String inputCharacters()
     {
     	return inputString( "Enter characters file: " );
     } // end method
     
-    public static String inputSaveAs()
+    public String inputSaveAs()
     {
     	return inputString( "Save as: " );
     } // end method
     
-    public static String inputLoadGame()
+    public String inputLoadGame()
     {
     	return inputString( "Load game: " );
     } // end method
 
-	public static int inputInt( int min, int max, String prompt )
+	public int inputInt( int min, int max, String prompt )
 	{
 		Scanner sc = new Scanner( System.in );
 		int input;
@@ -69,7 +69,7 @@ public class UI
 		return input;
 	} // end method
 
-	public static String inputString( String prompt )
+	public String inputString( String prompt )
 	{
 		Scanner sc = new Scanner( System.in );
 		String input;
@@ -87,7 +87,7 @@ public class UI
 		return input;
 	}
 	
-	public static boolean retry( String prompt )
+	public boolean retry( String prompt )
 	{
 		int selection;
 		
@@ -98,7 +98,7 @@ public class UI
 	}
 	
 	// WORK IN PROGRESS
-	public static void roundMenu( GameController game )
+	public void roundMenu( GameController game )
 	{
 		int selection;
 		
@@ -127,7 +127,7 @@ public class UI
 		} while ( selection == 2 || selection == 3 );		
 	} // end method
 	
-	public static Ability turnMenu( harkadventurer.model.Character chara )
+	public Ability turnMenu( harkadventurer.model.Character chara )
 	{
 		int selection = 0;
 		Ability ability = null;
@@ -146,7 +146,7 @@ public class UI
 		return ability;	
 	} // end method
 	
-	public static Ability abilityMenu( LinkedList<Ability> abilities )
+	public Ability abilityMenu( LinkedList<Ability> abilities )
 	{
 		int selection;
 		String prompt;
@@ -169,7 +169,7 @@ public class UI
 		return ability;
 	} // end method
 	
-	public static Targetable targetMenu( LinkedList<Targetable> targets )
+	public Targetable targetMenu( LinkedList<Targetable> targets )
 	{
 		int selection;
 		String prompt;
@@ -189,7 +189,7 @@ public class UI
 		return target;
 	} // end method
 	
-	public static void endGame( Team victors )
+	public void endGame( Team victors )
 	{
 		System.out.println( "Congratulations, " + victors.getName() + "!\nYou have vanquished your enemies!" );
 	}
