@@ -127,10 +127,17 @@ public class FileLoader
 
 	// ===== PRIVATE METHODS =====
 	/*
+	 * readFile
 	 * Reads an input file, converting each line into an entry in a list of strings.
 	 *
 	 * Parameters:
 	 * filename - The name of the file to be read.
+	 *
+	 * Returns:
+	 * A list of strings, each string being a line of the file.
+	 *
+	 * Throws:
+	 * IOException - In case of an error in file reading.
 	 */
 	private LinkedList<String> readFile( String fileName ) throws IOException
 	{
@@ -166,6 +173,19 @@ public class FileLoader
 		return lineList;
 	} // end method
 	
+	/*
+	 * readAbilityLine
+	 * Creates an ability from a line of data.
+	 *
+	 * Parameters:
+	 * data - A single line from an Abilities input file.
+	 *
+	 * Returns:
+	 * The ability generated.
+	 *
+	 * Throws:
+	 * AbilityException - If the data format is invalid
+	 */
 	private Ability readAbilityLine( String data ) throws AbilityException
 	{
 		char type, target;
@@ -207,6 +227,19 @@ public class FileLoader
 		return ability;
 	} // end method
 	
+	/*
+	 * readCharacterLine
+	 * Creates a character from a line of data.
+	 *
+	 * Parameters:
+	 * data - A single line from a Characters input file.
+	 *
+	 * Returns:
+	 * The character generated.
+	 *
+	 * Throws:
+	 * CharacterException - If the data format is invalid
+	 */
 	private Character readCharacterLine( String data, LinkedList<Ability> abilities ) throws CharacterException
 	{
 		int maxHealth;
@@ -244,6 +277,21 @@ public class FileLoader
 		return chara;
 	} // end method
 	
+	/*
+	 * getAbility
+	 * Given a string and a list of abilities, retrieves an ability from the list with a name that
+	 * matches the string.
+	 *
+	 * Parameters:
+	 * name - The name of the ability to be retrieved
+	 * abilities - The list of valid abilities
+	 *
+	 * Returns:
+	 * An ability from the list with the specified name
+	 *
+	 * Throws:
+	 * CharacterException - If there is no ability with the specified name
+	 */
 	private Ability getAbility( String name, LinkedList<Ability> abilities ) throws CharacterException
 	{
 		Ability ability = null;

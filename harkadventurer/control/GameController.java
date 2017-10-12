@@ -7,6 +7,13 @@ import harkadventurer.model.*;
 import harkadventurer.model.Character;
 import harkadventurer.excep.*;
 
+/**
+ * A GameController object manages the game. The GameController initialises the gamestate, and controls
+ * the flow of events throughout rounds of combat.
+ *
+ * @author Jack McNair 18927430
+ * @since 10/10/2017
+ */
 public class GameController
 {
 	// ===== CLASSFIELDS =====
@@ -16,6 +23,14 @@ public class GameController
 	private FileLoader loader;
 	private ObjectIO objLoader;
 	
+	/**
+	 * Constructs a GameController that uses the specified user interface, file loader and object 
+	 * loader.
+	 *
+	 * @param inUI The desired user interface
+	 * @param inLoader The FileLoader that will load Character and Ability files.
+	 * @param inObjLoader The ObjectIO object that will be used to save and load games in progress
+	 */
 	public GameController( UI inUI, FileLoader inLoader, ObjectIO inObjLoader )
 	{
 		teams = null;
@@ -24,6 +39,10 @@ public class GameController
 		objLoader = inObjLoader;
 	} // end method
 	
+	/**
+	 * Begins a game using an Abilities and Character csv files. Uses the csv files to construct
+	 * a list of teams, then, if the teams were loaded correctly, starts the game.
+	 */
 	public void startGame()
 	{
 		LinkedList<Ability> abilityList = null;
@@ -39,9 +58,12 @@ public class GameController
 		if ( teams != null )
 		{
 			ui.roundMenu( this );
-		} // end if
+		}
 	} // end method
 	
+	/**
+	 * Saves the game's list of teams as an object file. Prompts the user to input a file name.
+	 */
 	public void saveGame()
 	{
 		String filename;
@@ -50,15 +72,30 @@ public class GameController
 		objLoader.saveGame( teams, filename );
 	} // end method
 	
+	/**
+	 * Loads a list of teams from an object file, then begins a round.
+	 */
 	public void loadGame()
 	{
 		String filename;
+		LinkedList<Team> inTeams = null;
 		
 		filename = ui.inputLoadGame();
-		teams = objLoader.loadGame( filename );
+		inTeams = objLoader.loadGame( filename );
+
+		if ( inTeams != null )
+		{
+			teams = inTeams;
+		} // end if
+
 		ui.roundMenu( this );
 	} // end method
 	
+	/**
+	 * Runs a round of combat. Iterates through each team, taking a turn for each character. At the
+	 * end of each turn, empty teams are removed from the team list. If there is only one team
+	 * remaining at the end of the round, the game ends.
+	 */
 	public void playRound()
 	{
 		Team curTeam;
@@ -99,6 +136,17 @@ public class GameController
 		} // end if
 	} // end method
 	
+	// ===== PRIVATE METHODS =====
+	/*
+	 * useAbility
+	 * Resolves an ability. Generates a list of valid targets from an ability's targeting logic,
+	 * prompts the user to select a target, then resolves the ability against that target.
+	 *
+	 * Parameters:
+	 * ability - The ability to be used
+	 * curTeam - The team of the character using the ability
+	 * enemyTeams - A list of enemy teams
+	 */
 	private void useAbility( Ability ability, Team curTeam, LinkedList<Team> enemyTeams )
 	{
 		Targetable target;
@@ -112,6 +160,16 @@ public class GameController
 		effect.resolve( target, rollDice( ability ) );
 	} // end method
 	
+	/*
+	 * rollDice
+	 * Rolls the dice for a specified ability.
+	 *
+	 * Parameters:
+	 * ability - The ability being rolled
+	 *
+	 * Returns:
+	 * The result of the dice roll
+	 */
 	private int rollDice( Ability ability )
 	{
 		int result = ability.getBase();
@@ -124,6 +182,10 @@ public class GameController
 		return result;
 	} // end method
 	
+	/*
+	 * checkEmptyTeams
+	 * Removes empty teams from the team list.
+	 */
 	private void checkEmptyTeams()
 	{
 		Team team;
@@ -140,6 +202,14 @@ public class GameController
 		} // end while
 	} // end method
 	
+	/*
+	 * loadAbilities
+	 * Uses the FileLoader to load a list of abilities from a csv file. Prompt the user to input a
+	 * filename. If the load fails, the user had the option to input a different filename or cancel.
+	 *
+	 * Returns:
+	 * The list of all abilities
+	 */
 	private LinkedList<Ability> loadAbilities()
 	{
 		String filename;
@@ -164,6 +234,16 @@ public class GameController
 		return abilityList;
 	} // end method
 	
+
+	/*
+	 * loadCharacters
+	 * Uses the FileLoader to load a list of characters from a csv file and sort them into teams. 
+	 * Prompt the user to input a filename. If the load fails, the user had the option to input a 
+	 * different filename or cancel.
+	 *
+	 * Parameters:
+	 * abilityList - The list of all abilities 
+	 */
 	private void loadCharacters( LinkedList<Ability> abilityList )
 	{
 		String filename;

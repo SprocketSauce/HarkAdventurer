@@ -4,8 +4,20 @@ import java.util.*;
 import java.io.*;
 import harkadventurer.model.Team;
 
+/**
+ * Saves and loads lists of teams. Used to save a game in progress.
+ *
+ * @author Jack McNair 18927430
+ * @since 10/10/2017
+ */
 public class ObjectIO
 {
+	/**
+	 * Saves a list of teams to an object file.
+	 *
+	 * @param teams The list of teams to be saved
+	 * @param filename The name of the object file to be saved
+	 */
 	public void saveGame( LinkedList<Team> teams, String filename )
 	{
 		FileOutputStream file = null;
@@ -27,6 +39,12 @@ public class ObjectIO
 		}
 	} // end method
 	
+	/**
+	 * Loads an object file containing a list of teams.
+	 *
+	 * @param filename The file to be loaded
+	 * @return The list of teams described by the object file
+	 */
 	public LinkedList<Team> loadGame( String filename )
 	{
 		Object object;
