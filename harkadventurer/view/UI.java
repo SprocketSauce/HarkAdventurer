@@ -256,7 +256,7 @@ public class UI
 		String prompt;
 		Targetable target;
 		
-		prompt = "Seletct Target:\n\n";
+		prompt = "Select Target:\n\n";
 		for ( int i = 0; i < targets.size(); i++ )
 		{
 			prompt = prompt + i + ")    " + targets.get(i).toString() + "\n\n";

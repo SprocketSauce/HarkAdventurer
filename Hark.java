@@ -2,7 +2,10 @@ import java.util.*;
 import harkadventurer.control.*;
 import harkadventurer.view.UI;
 
-public class TestRun
+/**
+ * Runs the combat tool.
+ */
+public class Hark
 {
 	public static void main( String[] args )
 	{

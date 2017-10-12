@@ -1,3 +1,4 @@
+./Hark.java
 ./harkadventurer/control/TargetSingleEnemy.java
 ./harkadventurer/control/TargetingStrategy.java
 ./harkadventurer/control/CharacterFactory.java
@@ -23,4 +24,3 @@
 ./harkadventurer/model/Character.java
 ./harkadventurer/model/Targetable.java
 ./harkadventurer/view/UI.java
-./harkadventurer/TestRun.java
